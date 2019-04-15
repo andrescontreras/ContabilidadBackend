@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -10,6 +11,10 @@ namespace ContabilidadBackend.Models
 	public enum TipoTransaccion { Pago_nomina, Pago_prestamo, Pago_extra, Buses, Almuerzo, Prestamo, Gasto_extra }
 	public class Transaccion
 	{
+		public Transaccion() {
+			this.Movimientos = new HashSet<Movimiento>();
+		}
+
 		[Key]
 		public int Id { get; set; }
 		[Required]

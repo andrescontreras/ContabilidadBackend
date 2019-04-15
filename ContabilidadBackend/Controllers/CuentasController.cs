@@ -24,8 +24,11 @@ namespace ContabilidadBackend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Cuenta>>> GetCuentas()
         {
-            return await _context.Cuentas.ToListAsync();
-        }
+			
+				var cuentas = await _context.Cuentas.Include(cuenta => cuenta.Movimientos).ToListAsync();
+			return cuentas;
+
+		}
 
         // GET: api/Cuentas/5
         [HttpGet("{id}")]

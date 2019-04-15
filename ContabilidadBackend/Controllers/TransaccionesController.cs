@@ -11,23 +11,26 @@ namespace ContabilidadBackend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TransaccionsController : ControllerBase
+    public class TransaccionesController : ControllerBase
     {
         private readonly ContabilidadContext _context;
 
-        public TransaccionsController(ContabilidadContext context)
+        public TransaccionesController(ContabilidadContext context)
         {
             _context = context;
         }
 
-        // GET: api/Transaccions
+        // GET: api/Transacciones
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Transaccion>>> GetTransacciones()
         {
-            return await _context.Transacciones.ToListAsync();
+			var transacciones = await _context.Transacciones
+				.Include(transaccion => transaccion.Movimientos)
+				.ToListAsync();
+			return transacciones;
         }
 
-        // GET: api/Transaccions/5
+        // GET: api/Transacciones/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Transaccion>> GetTransaccion(int id)
         {
@@ -41,7 +44,7 @@ namespace ContabilidadBackend.Controllers
             return transaccion;
         }
 
-        // PUT: api/Transaccions/5
+        // PUT: api/Transacciones/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTransaccion(int id, Transaccion transaccion)
         {
@@ -71,7 +74,7 @@ namespace ContabilidadBackend.Controllers
             return NoContent();
         }
 
-        // POST: api/Transaccions
+        // POST: api/Transacciones
         [HttpPost]
         public async Task<ActionResult<Transaccion>> PostTransaccion(Transaccion transaccion)
         {
@@ -81,7 +84,7 @@ namespace ContabilidadBackend.Controllers
             return CreatedAtAction("GetTransaccion", new { id = transaccion.Id }, transaccion);
         }
 
-        // DELETE: api/Transaccions/5
+        // DELETE: api/Transacciones/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Transaccion>> DeleteTransaccion(int id)
         {

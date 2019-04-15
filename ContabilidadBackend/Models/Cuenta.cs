@@ -18,5 +18,7 @@ namespace ContabilidadBackend.Models
 		public int ValorActual { get; set; }
 
 		public virtual ICollection<Movimiento> Movimientos { get; set; }
+
+
 	}
 }

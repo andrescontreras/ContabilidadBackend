@@ -49,7 +49,7 @@ namespace ContabilidadBackend.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutMovimiento(int id, Movimiento movimiento)
         {
-            if (id != movimiento.MovimientoId)
+            if (id != movimiento.Id)
             {
                 return BadRequest();
             }
@@ -82,7 +82,7 @@ namespace ContabilidadBackend.Controllers
             _context.Movimientos.Add(movimiento);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetMovimiento", new { id = movimiento.MovimientoId }, movimiento);
+            return CreatedAtAction("GetMovimiento", new { id = movimiento.Id }, movimiento);
         }
 
         // DELETE: api/Movimientos/5
@@ -103,7 +103,7 @@ namespace ContabilidadBackend.Controllers
 
         private bool MovimientoExists(int id)
         {
-            return _context.Movimientos.Any(e => e.MovimientoId == id);
+            return _context.Movimientos.Any(e => e.Id == id);
         }
     }
 }

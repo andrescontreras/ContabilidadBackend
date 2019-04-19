@@ -24,6 +24,9 @@ namespace ContabilidadBackend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Transaccion>>> GetTransacciones()
         {
+			Transaccion t = new Transaccion();
+			t.generarMovimientos();
+
 			var transacciones = await _context.Transacciones
 				.Include(transaccion => transaccion.Movimientos)
 				.ToListAsync();
@@ -80,7 +83,7 @@ namespace ContabilidadBackend.Controllers
         {
             _context.Transacciones.Add(transaccion);
             await _context.SaveChangesAsync();
-
+			transaccion.generarMovimientos();
             return CreatedAtAction("GetTransaccion", new { id = transaccion.Id }, transaccion);
         }
 

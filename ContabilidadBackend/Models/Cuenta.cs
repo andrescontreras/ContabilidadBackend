@@ -11,12 +11,27 @@ namespace ContabilidadBackend.Models
 	{
 		[Key]
 		public int Id { get; set; }
+		// =======================================
+		[Column(TypeName = "NVARCHAR(50)")]
 		[Required]
-		[Column(TypeName = "nvarchar(50)")]
 		public string Nombre { get; set; }
+		// =======================================
+		[Column(TypeName = "INT")]
 		[Required]
 		public int ValorActual { get; set; }
-
+		// =======================================
+		[Column(TypeName ="INT")]
+		public int? Mes { get; set; }
+		// =======================================
+		[Column(TypeName ="DATE")]
+		public DateTime? UltimoCambio { get; set; }
+		// =======================================
+		[Column(TypeName = "INT")]
+		public int? ValorMax { get; set; }
+		// =======================================
+		[Column(TypeName = "INT")]
+		public int? ValorMin { get; set; }
+		// =======================================
 		public virtual ICollection<Movimiento> Movimientos { get; set; }
 
 

@@ -11,15 +11,21 @@ namespace ContabilidadBackend.Models
 	public class Movimiento
 	{
 		[Key]
-		public int MovimientoId { get; set; }
+		public int Id { get; set; }
+		// =======================================
 		[Required]
+		[Column(TypeName = "INT")]
 		public TipoMovimiento Tipo { get; set; }
+		// =======================================
 		/* relacion con la transaccion*/
 		public int TransaccionId { get; set; }
+		// =======================================
 		[ForeignKey("TransaccionId")]
 		public Transaccion Transaccion { get; set; }
+		// =======================================
 		/*relacion con la cuenta*/
 		public int CuentaId { get; set; }
+		// =======================================
 		[ForeignKey("CuentaId")]
 		public Cuenta Cuenta { get; set; }
 

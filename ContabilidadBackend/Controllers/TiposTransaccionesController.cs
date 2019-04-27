@@ -24,7 +24,10 @@ namespace ContabilidadBackend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TipoTransaccion>>> GetTipoTransaccion()
         {
-            return await _context.TipoTransaccion.ToListAsync();
+			var tipostransacciones = await _context.TipoTransaccion
+				.Include(t => t.Transacciones)
+				.ToListAsync();
+			return tipostransacciones;
         }
 
         // GET: api/TiposTransacciones/5

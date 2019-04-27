@@ -20,6 +20,8 @@ namespace ContabilidadBackend.Models
 		public DbSet<Transaccion> Transacciones { get; set; }
 		public DbSet<Movimiento> Movimientos { get; set; }
 		public DbSet<Cuenta> Cuentas { get; set; }
+		public DbSet<TipoTransaccion> TipoTransaccion { get; set; }
+
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
@@ -63,8 +65,6 @@ namespace ContabilidadBackend.Models
 
 
 		}
-
-		public DbSet<ContabilidadBackend.Models.TipoTransaccion> TipoTransaccion { get; set; }
 	}
 
 

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ContabilidadBackend.Models;
+using ContabilidadBackend.Commands;
 
 namespace ContabilidadBackend.Controllers
 {
@@ -25,7 +26,7 @@ namespace ContabilidadBackend.Controllers
         public async Task<ActionResult<IEnumerable<Transaccion>>> GetTransacciones()
         {
 			Transaccion t = new Transaccion();
-			t.generarMovimientos();
+			//t.generarMovimientos();
 
 			var transacciones = await _context.Transacciones
 				.Include(transaccion => transaccion.Movimientos)
@@ -81,11 +82,20 @@ namespace ContabilidadBackend.Controllers
         [HttpPost]
         public async Task<ActionResult<Transaccion>> PostTransaccion(Transaccion transaccion)
         {
-            _context.Transacciones.Add(transaccion);
-            await _context.SaveChangesAsync();
-			transaccion.generarMovimientos();
-            return CreatedAtAction("GetTransaccion", new { id = transaccion.Id }, transaccion);
-        }
+			var c = new CrearTransaccion(_context);
+			var t =  await c.crearTransaccion(transaccion);
+			//transaccion.generarEstado();
+			//         _context.Transacciones.Add(transaccion);
+			//         await _context.SaveChangesAsync();
+			//transaccion.generarMovimientos(transaccion);
+
+
+			//System.Diagnostics.Debug.WriteLine("<-----<-----<-----<-----<-----<-----<-----");
+			//System.Diagnostics.Debug.WriteLine(t.Entity);
+			//return Ok();
+			return CreatedAtAction("GetTransaccion", new { id = t.Id }, t);
+			
+		}
 
         // DELETE: api/Transacciones/5
         [HttpDelete("{id}")]

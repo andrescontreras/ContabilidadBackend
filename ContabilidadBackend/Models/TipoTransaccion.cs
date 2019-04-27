@@ -38,5 +38,6 @@ namespace ContabilidadBackend.Models
 		public TipoMovimiento TipoMovimiento2 { get; set; }
 
 		public virtual ICollection<Transaccion> Transacciones { get; set; }
+
 	}
 }

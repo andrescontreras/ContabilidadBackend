@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ContabilidadBackend.Models
 {
 	//public enum TipoTransaccion { Pago_nomina, Pago_prestamo, Pago_extra, Buses, Almuerzo, Prestamo, Gasto_extra }
-	public enum EstadoTransaccion { Correcto, Fondos_insuficientes, Restriccion}
+	public enum EstadoTransaccion { Correcto, Fondos_insuficientes, Restriccion, Sin_confirmar }
 	public class Transaccion
 	{
 
@@ -29,30 +26,13 @@ namespace ContabilidadBackend.Models
 		public EstadoTransaccion? Estado { get; set; }
 		// =======================================
 		[Column(TypeName = "INT")]
+		[Required]
 		public int TipoTransaccionId { get; set; }
 		// =======================================
-		[Required]
 		[ForeignKey("TipoTransaccionId")]
-		public TipoTransaccion TipoTransaccion { get; set; }
+		public TipoTransaccion tipoTransaccion { get; set; }
 		// =======================================
 		public virtual ICollection<Movimiento> Movimientos { get; set; }
 
-		public void generarMovimientos()
-		{
-			Console.WriteLine("---->---->---->---->---->---->");
-			System.Diagnostics.Debug.WriteLine("<-----<-----<-----<-----<-----<-----<-----");
-
-			
-
-
-			//using (var context = new ContabilidadContext()) {
-			//	Movimiento m = new Movimiento();
-			//	m.Tipo = TipoMovimiento.Credito;
-			//	m.TransaccionId = 0;
-
-			//	context.Movimientos.Add(m);
-			//	context.SaveChanges();
-			//}
-		}
 	}
 }
